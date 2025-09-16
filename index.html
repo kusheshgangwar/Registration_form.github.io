@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 320px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #errorMsg {
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="registrationForm">
+    <h2>Registration</h2>
+
+    <input type="text" id="fullname" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <input type="text" id="phone" placeholder="Phone Number">
+
+    <select id="gender">
+      <option value="">-- Select Gender --</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <button type="button" id="registerBtn">Register</button>
+    <p id="errorMsg"></p>
+  </form>
+
+  <script>
+    document.getElementById("registerBtn").addEventListener("click", function () {
+      let inputs = document.querySelectorAll("#registrationForm input, #registrationForm select");
+      let errorMsg = document.getElementById("errorMsg");
+      let isEmpty = false;
+
+      // check empty fields
+      inputs.forEach(function(input) {
+        if (input.value.trim() === "") {
+          isEmpty = true;
+        }
+      });
+
+      if (isEmpty) {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "Please fill the fields";
+      } 
+      else {
+        errorMsg.style.display = "none";
+        
+        // ✅ Extra validation for password match
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          errorMsg.style.display = "block";
+          errorMsg.textContent = "Passwords do not match!";
+          return;
+        }
+
+        alert("Registration Successful!");
+        // form submission code goes here
+      }
+    });
+  </script>
+
+</body>
+</html>
